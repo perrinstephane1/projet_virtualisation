@@ -3,5 +3,6 @@
  * @returns A string which contains "Hello world!"
  */
 export const helloWorld = (): string => {
-  return 'Hello world!';
+  return 'Hello Stéphane !';
 };
+console.log(helloWorld());
