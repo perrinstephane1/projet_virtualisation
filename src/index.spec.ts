@@ -1,4 +1,4 @@
-import { getSystemInfos, createMyServer, startMyServer, stopMyServer } from './index';
+import { getSystemInfos, createMyServer, startMyServer, stopMyServer } from './server';
 import * as http from 'http'
 
 describe('server test API', () => {

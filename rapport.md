@@ -122,3 +122,45 @@ Tout se passe comme si on avait lancé nous-même notre app !
 - flag `-p` : nous permet de nous (à l'hôte)communiquer le port du container
 - flag `-m` : sert à fixer une limite de mémoire
 - flag `-cpus` : désigne le nombre de CPUs sur lequel on veut lancer le container
+
+Changer le nombre de CPU de 1 à 4 permet de passer de plus de 4s d'attente entre la ligne "[nodemon] starting `ts-node src/index.ts`"  et la ligne "[nodemon] clean exit - waiting for changes before restart"
+
+*test de la commande avec un autre bash*
+``` bash
+stephane@LAPTOP-65O90SPK:~/projet_virtualisation$ curl 127.0.0.1:8123/api/v1/sysinfo
+```
+On prend soin de changer le port avec le port que l'on a entré 
+```bash
+stephane@LAPTOP-65O90SPK:~/projet_virtualisation$ curl 127.0.0.1:8123/api/v1/sysinfo
+```
+(On a auparavant changé le `server.listen(8000, "localhost")` en `server.listen(8000, "0.0.0.0")`) pour pouvoir écouter tous les ports.
+### historique
+```bash
+stephane@LAPTOP-65O90SPK:~/projet_virtualisation$ sudo docker image history sysinfo-api:0.0.1
+IMAGE          CREATED             CREATED BY                                      SIZE      COMMENT
+2899adac2e25   4 minutes ago       /bin/sh -c #(nop)  CMD ["npm" "run" "watch"]    0B        
+e1eacdad133e   4 minutes ago       /bin/sh -c npm run build                        29.9kB    
+cee86743eae7   4 minutes ago       /bin/sh -c npm install                          519kB     
+b68f67a8780b   4 minutes ago       /bin/sh -c #(nop) COPY --chown=nodeuser:node…   126MB     
+dcf2feb9944c   About an hour ago   /bin/sh -c #(nop)  USER nodeuser                0B        
+080e1acd481e   About an hour ago   /bin/sh -c addgroup -S nodegroup && adduser …   4.72kB    
+5ea0a70aa2a0   About an hour ago   /bin/sh -c apk add --upgrade nodejs-doc         156kB     
+945a397f872e   About an hour ago   /bin/sh -c apk add git  curl  nodejs  npm       63.2MB    
+55e8556ea7b8   About an hour ago   /bin/sh -c apk update                           2.3MB     
+129fa324d573   About an hour ago   /bin/sh -c #(nop) WORKDIR /app                  0B        
+c4fc93816858   3 months ago        /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B        
+<missing>      3 months ago        /bin/sh -c #(nop) ADD file:f77e3f51f020890d2…   5.59MB 
+```
+###utilisation de dive
+Après avoir utilis dive, on se rend dans notre container, et on remarque qu'on a bien une partie de la mémoire utilisée qui est "potentiellement gâchée" (1.8 MB/197 MB).
+
+On a peut-être pas besoin d'installer toutes les dépendances et seulement celles dont on a besoin...
+
+### Quesion 6 : construction multi-stages
+On commente tout le `dockerfile`qu'on a créé pour recréer une image en mutli-stages.
+On n'ajoute ensuite que les packages nécessaires.
+```bash
+Successfully built 64159b17be90
+Successfully tagged sysinfo-api:0.0.2
+```
+Cette fois-ci :a taille est de 61 MB et seulement 496 kB sont potentiellement gâchés.
