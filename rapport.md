@@ -100,3 +100,25 @@ Share images, automate workflows, and more with a free Docker ID:
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/ 
  ```
+
+ ### génération du dockerfile
+ Tout se passe bien, on peut le lancer sans problème : 
+ ``` bash
+ stephane@LAPTOP-65O90SPK:~/projet_virtualisation$ sudo docker run -p 8123:8000 -m1024m --cpus=1 sysinfo-api:0.0.1
+
+> i-want-typescript@1.0.0 watch
+> nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/index.ts
+
+[nodemon] 2.0.19
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): src/**/*.ts
+[nodemon] watching extensions: ts,json
+[nodemon] starting `ts-node src/index.ts`
+[nodemon] clean exit - waiting for changes before restart
+```
+Tout se passe comme si on avait lancé nous-même notre app !
+
+### commande docker run
+- flag `-p` : nous permet de nous (à l'hôte)communiquer le port du container
+- flag `-m` : sert à fixer une limite de mémoire
+- flag `-cpus` : désigne le nombre de CPUs sur lequel on veut lancer le container
