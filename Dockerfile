@@ -40,6 +40,8 @@
  RUN apk add --update nodejs
  RUN apk add --upgrade npm
 
+ 
+
  # on utilise que la version de production (pex pas les tests)
  RUN npm ci --only=production
  # on rajoute les fichiers dans un fichier des trucs de production
@@ -54,8 +56,10 @@
  WORKDIR /app
  RUN apk add --update nodejs
  #on a pas besoin de npm, on copie que les modules utilisés
- COPY --from=builder /app/node_modules_production/ ./node_modules/
- COPY --from=builder /app/dist/ ./dist/
+ RUN addgroup -S nodegroup && adduser -S nodeuser -G nodegroup
+ USER nodeuser
+ COPY --chown=nodeuser:nodegroup --from=builder /app/node_modules_production/ ./node_modules/
+ COPY --chown=nodeuser:nodegroup --from=builder /app/dist/ ./dist/
 
  #puis on lance
- CMD ["npm","run", "watch"]
+ CMD ["node","dist/index.js"]

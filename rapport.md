@@ -164,3 +164,12 @@ Successfully built 64159b17be90
 Successfully tagged sysinfo-api:0.0.2
 ```
 Cette fois-ci :a taille est de 61 MB et seulement 496 kB sont potentiellement gâchés.
+### Question 8
+> Déployez un nouveau conteneur à partir de votre image publiée. Quelle commande utilisez-vous ?
+
+On se rend sur la page [documentation-"run-containers"](https://docs.docker.com/language/nodejs/run-containers/)   et on relance le docker (`sudo service docker start`). Malgré cela, quelques erreurs interviennent quand on relance l'image : on la modifie donc en rajoutant les droits pour copier les modules et en changeant la commande `CMD` en `node` plutôt que `npm`. On obtient l'erreur  :
+``` bash
+stephane@LAPTOP-65O90SPK:~/projet_virtualisation$ docker run stephperrin/sysinfo-api:0.0.2
+docker: Error response from daemon: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "npm": executable file not found in $PATH: unknown.
+ERRO[0000] error waiting for container: context canceled
+```
