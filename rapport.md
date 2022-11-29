@@ -187,5 +187,20 @@ On doit installer la version 16.18.1 de node (cf. documentation Github)
 - name: test Node
          run node -v
 ```
+On veut ensuite installer les dépendances de notre application, ici un `npm install` suffit puisque les dépendances sont dans le `package.json`
 
-
+## FLY.IO
+On se connecte à docker (username: `stephperrin`), puis on tag notre nouvelle image
+``` bash
+stephane@LAPTOP-65O90SPK:~/projet_virtualisation$ sudo docker tag sysinfo-api:0.0.3 stephperrin/sysinfo-api:0.0.3
+stephane@LAPTOP-65O90SPK:~/projet_virtualisation$ sudo docker push stephperrin/sysinfo-api:0.0.3
+The push refers to repository [docker.io/stephperrin/sysinfo-api]
+fe696f09bea9: Pushed 
+839e32493246: Pushed 
+ea1ef2b70666: Pushed 
+99183192017d: Layer already exists 
+57f579c19b94: Layer already exists 
+34d5ebaa5410: Layer already exists 
+0.0.3: digest: sha256:f656615110a722ccacbd9a77d196ed2289316899622cf5aacad7762d4a34a4ae size: 1575
+```
+on recrée une image `sudo docker build . -t registry.fly.io/sysinfo-api:0.0.3` puis on lance le push `docker push registry.fly.io/sysinfo-api:0.0.3` mais cela ne marche pas. On essaye donc le `flyctl launch`directement.
