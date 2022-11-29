@@ -7,6 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup Node
-        run: 
-          sudo apt install nodejs | 
-          node -v
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.18.1"
+          cache: ${{ steps.detect-package-manager.outputs.manager }}
+      - name: test node
+        run : node -v
