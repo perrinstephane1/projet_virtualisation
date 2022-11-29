@@ -19,6 +19,6 @@ jobs:
       - name: installation systeminformation
         run: npm install systeminformation
       - name: compilation et suite de test unitaires
-        run: |
-          npm install
-          npm run test
+        run: npm install
+      - name: tests
+        run: npm run test
