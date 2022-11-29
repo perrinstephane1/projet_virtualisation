@@ -16,9 +16,9 @@ jobs:
           cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: test node
         run : node -v
-      - name: installation systeminformation
-        run: npm install systeminformation
       - name: compilation et suite de test unitaires
         run: npm install
-      - name: tests
+      - name: cat
         run: cat package.json
+      - name: tests
+        run: npm run test
