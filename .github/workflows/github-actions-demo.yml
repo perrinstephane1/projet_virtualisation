@@ -21,4 +21,4 @@ jobs:
       - name: compilation et suite de test unitaires
         run: npm install
       - name: tests
-        run: npm run test
+        run: jest --config .jestrc.json --forceExit
