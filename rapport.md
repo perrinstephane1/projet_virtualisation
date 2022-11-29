@@ -173,3 +173,19 @@ stephane@LAPTOP-65O90SPK:~/projet_virtualisation$ docker run stephperrin/sysinfo
 docker: Error response from daemon: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "npm": executable file not found in $PATH: unknown.
 ERRO[0000] error waiting for container: context canceled
 ```
+L'image obtenue marche bien !
+`docker run -d -p 8123:8000 sysinfo-api:0.0.3`
+
+## TD3 : CI/CD
+On doit installer la version 16.18.1 de node (cf. documentation Github)
+```
+- name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          cache: ${{ steps.detect-package-manager.outputs.manager }}
+- name: test Node
+         run node -v
+```
+
+
