@@ -19,4 +19,6 @@ jobs:
       - name: installation systeminformation
         run: npm install systeminformation
       - name: compilation et suite de test unitaires
-        run: jest --config .jestrc.json --forceExit
+        run: |
+          npm install --save-dev jest
+          jest --config .jestrc.json --forceExit
