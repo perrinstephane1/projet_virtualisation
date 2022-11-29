@@ -1,7 +1,10 @@
 name: My Actions
 
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+on:
+  push:
+    branches:
+    - main
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -13,3 +16,7 @@ jobs:
           cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: test node
         run : node -v
+      - name: installation systeminformation
+        run: npm install systeminformation
+      - name: compilation et suite de test unitaires
+        run: npm run test
